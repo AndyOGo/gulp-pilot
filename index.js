@@ -12,6 +12,11 @@ var config = require('./lib/loadConfig')(gulp, $);
 /**
  * GulpPilot helps you to manage you build tasks in separate, well structured files.
  *
+ * **Usage:** Every task's factory function is invoked with the following 3 parameters:
+ * - gulp - The gulp instance
+ * - $ - The gulp-load-plugins instance hash.
+ * - [config] - The default config, a specified config, or a merged version of both (optional).
+ *
  * **Peer-Dependencies:** This plugins requires your package to use gulp, gulp-util and gulp-load-plugins.
  *
  * **Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
@@ -55,7 +60,8 @@ GulpPilot.prototype = {
  * @param {TaskToken} name - The name of the task.
  * @param {Array} [dependencies] - An array of task names to be executed and completed before your task will run.
  * @returns {GulpPilot} Returns itself to enable method chaining.
- * @example
+ * @example <caption>Utilizing task factories</caption>
+ *
  * // example folder structure:
  * //
  * // |-dist/
@@ -76,6 +82,16 @@ GulpPilot.prototype = {
  * pilot.task('foo');
  * // will load from gulp/bar.js with dependency 'foo'
  * pilot.task('bar', ['foo']);
+ *
+ * @example <caption>Utilizing sub tasks</caption>
+ *
+ * // in your gulpfile.js
+ * var pilot = require('gulp-pilot');
+ *
+ * // will load from gulp/foo.js
+ * pilot.task('foo:sub');
+ * // will load from gulp/bar.js with dependency 'foo:sub'
+ * pilot.task('bar', ['foo:sub']);
  */
 function task(name, dependencies) {
     var task = get(name);
@@ -94,10 +110,13 @@ function task(name, dependencies) {
 /**
  * Get a task's function implementation by name.
  *
+ * **Note:** This is handy if you want your task name being different from your implementation factory file.
+ *
  * @memberOf GulpPilot#
  * @param {TaskToken} name - The name of the task.
  * @returns {Function} Returns the function that implements the task.
- * @example
+ * @example <caption>Utilizing task factories</caption>
+ *
  * // example folder structure:
  * //
  * // |-dist/
@@ -118,7 +137,18 @@ function task(name, dependencies) {
  * // will load from gulp/foo.js
  * gulp.task('foo', pilot.get('foo'));
  * // will load from gulp/bar.js with dependency 'foo'
- * gulp.task('bar', ['foo'], pilot.get('foo'));
+ * gulp.task('bar', ['foo'], pilot.get('bar'));
+ *
+ * @example <caption>Utilizing sub tasks</caption>
+ *
+ * // in your gulpfile.js
+ * var gulp = require('gulp');
+ * var pilot = require('gulp-pilot');
+ *
+ * // will load from gulp/foo.js
+ * gulp.task('foo', pilot.get('foo:sub'));
+ * // will load from gulp/bar.js with dependency 'foo'
+ * gulp.task('bar', ['foo'], pilot.get('bar'));
  */
 function get(name) {
     var log = $.util.log;

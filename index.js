@@ -11,6 +11,17 @@ var config = require('./loadConfig')(gulp, $);
  * GulpPilot helps you to manage you build tasks in separate, well structured files.
  *
  * **Peer-Dependencies:** This plugins requires your package to use gulp, gulp-util and gulp-load-plugins.
+ *
+ * **Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
+ *
+ * **CLI-Options:**
+ * | Flag | Description | Type |
+ * | --- | --- | --- |
+ * | --help | Show help | `boolean` |
+ * | --config, -c | Load a config file by path - for relative paths see CWD and __dirname below | `string` |
+ * | --merge-default-config, -m | Just use this flag to merge supplied config with default config | `boolean` |
+ * | --ignore-default-config, -i | Just use this flag to ignore default config (no merging) | `boolean` |
+ *
  * @constructor GulpPilot
  */
 function GulpPilot() {}
@@ -78,7 +89,7 @@ function task(name, dependencies) {
 }
 
 /**
- * Get a task' function implementation by name.
+ * Get a task's function implementation by name.
  *
  * @memberOf GulpPilot#
  * @param {TaskToken} name - The name of the task.

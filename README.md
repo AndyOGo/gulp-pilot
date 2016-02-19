@@ -6,6 +6,122 @@ Install `gulp-pilot` as a development dependency:
 npm install --save-dev gulp-pilot
 ```
 
+# Usage
+
+After you have installed this plugin you can utilize it in your gulpfile.js.
+
+Basically tasks are just javascript modules, though you can also group tasks
+and have multiple tasks defined in one module (subtasks).
+
+Let's assume the following folder structure:
+
+.
++-- dist/
++-- node_modules/
++-- src/
+|   +-- ...
++-- gulp/
+|   +-- foo.js
+|   +-- bar.js
++-- gulpfile.js
++-- package.json
++-- README.md
+
+## Task implementation factories
+
+Those are just functions you would export out of your module, who return a function that implements the task.
+Each factory gets invoked with *3 parameters*:
+
+- gulp - The gulp instance
+- $ - The gulp-load-plugins instance hash.
+- [config] - The default config, a specified config, or a merged version of both (optional).
+
+````javascript
+module.exports = function(gulp, $, config) {
+    return function() {
+        return gulp.src('Yours glob pattern here')
+            .pipe('...')
+            .pipe(gulp.dest('your path here');
+    };
+}
+````
+> gulp/foo.js
+
+````javascript
+module.exports = function(gulp, $, config) {
+    return function() {
+        return gulp.src('Another glob pattern here')
+            .pipe('...')
+            .pipe(gulp.dest('Another path here');
+    };
+}
+````
+> gulp/bar.js
+
+````javascript
+var gulp = require('gulp');
+var pilot = require('gulp-pilot');
+
+pilot.task('foo');
+
+pilot.task('bar', ['foo'])
+````
+> gulpfile.js
+
+
+## Subtasks
+
+Those are just functions you would export out of your module, who return plain object literals.
+Who's Properties represent one subtask's implementation.
+
+Each subtask is selected by the color (:) delimiter in your name, e.g. `"filename:subtask"`.
+Nesting is possible like `"filename:namespace:subtask"`.
+
+Even paths are supported, like `"path/filename"`, `"path/filename:subtask"` or `"path/filename:namespace:subtask"`
+
+````javascript
+module.exports = function(gulp, $, config) {
+    return {
+        sub1: function() {
+            return gulp.src('Yours glob pattern here')
+                .pipe('...')
+                .pipe(gulp.dest('your path here');
+        },
+
+        sub2: function() {
+            return gulp.src('Yours glob pattern here')
+                .pipe('...')
+                .pipe(gulp.dest('your path here');
+        }
+    };
+}
+````
+> gulp/foo.js
+
+````javascript
+module.exports = function(gulp, $, config) {
+    return function() {
+        gulp.src('Another glob pattern here')
+            .pipe('...')
+            .pipe(gulp.dest('Another path here');
+    };
+}
+````
+> gulp/bar.js
+
+````javascript
+var gulp = require('gulp');
+var pilot = require('gulp-pilot');
+
+pilot.task('foo:sub1');
+pilot.task('foo:sub2');
+
+gulp.task('foo', ['foo:sub1', 'foo:sub2']]);
+
+pilot.task('bar', ['foo'])
+````
+> gulpfile.js
+
 # API Documentation
 ## Classes
 
@@ -49,6 +165,11 @@ npm install --save-dev gulp-pilot
 ### new GulpPilot()
 GulpPilot helps you to manage you build tasks in separate, well structured files.
 
+**Usage:** Every task's factory function is invoked with the following 3 parameters:
+- gulp - The gulp instance
+- $ - The gulp-load-plugins instance hash.
+- [config] - The default config, a specified config, or a merged version of both (optional).
+
 **Peer-Dependencies:** This plugins requires your package to use gulp, gulp-util and gulp-load-plugins.
 
 **Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
@@ -75,8 +196,9 @@ automatically from a JS file with the gulp/ folder.
 | name | <code>[TaskToken](#TaskToken)</code> | The name of the task. |
 | [dependencies] | <code>Array</code> | An array of task names to be executed and completed before your task will run. |
 
-**Example**  
+**Example** *(Utilizing task factories)*  
 ```js
+
 // example folder structure:
 //
 // |-dist/
@@ -98,9 +220,25 @@ pilot.task('foo');
 // will load from gulp/bar.js with dependency 'foo'
 pilot.task('bar', ['foo']);
 ```
+**Example** *(Utilizing sub tasks)*  
+```js
+
+// in your gulpfile.js
+var pilot = require('gulp-pilot');
+
+// will load from gulp/foo.js
+pilot.task('foo:sub');
+// will load from gulp/bar.js with dependency 'foo:sub'
+pilot.task('bar', ['foo:sub']);
+```
 <a name="GulpPilot+get"></a>
 ### gulpPilot.get(name) ⇒ <code>function</code>
 Get a task's function implementation by name.
+
+**Note:** This is handy if you want your task name being different from your implementation factory file.
+
+**Important:** If you supply a deeper subtask nesting than you object literal return by your factory can handle,
+your task implementing function will have the rest of name applied as it's arguments.
 
 **Kind**: instance method of <code>[GulpPilot](#GulpPilot)</code>  
 **Returns**: <code>function</code> - Returns the function that implements the task.  
@@ -109,8 +247,9 @@ Get a task's function implementation by name.
 | --- | --- | --- |
 | name | <code>[TaskToken](#TaskToken)</code> | The name of the task. |
 
-**Example**  
+**Example** *(Utilizing task factories)*  
 ```js
+
 // example folder structure:
 //
 // |-dist/
@@ -131,7 +270,19 @@ var pilot = require('gulp-pilot');
 // will load from gulp/foo.js
 gulp.task('foo', pilot.get('foo'));
 // will load from gulp/bar.js with dependency 'foo'
-gulp.task('bar', ['foo'], pilot.get('foo'));
+gulp.task('bar', ['foo'], pilot.get('bar'));
+```
+**Example** *(Utilizing sub tasks)*  
+```js
+
+// in your gulpfile.js
+var gulp = require('gulp');
+var pilot = require('gulp-pilot');
+
+// will load from gulp/foo.js
+gulp.task('foo', pilot.get('foo:sub'));
+// will load from gulp/bar.js with dependency 'foo'
+gulp.task('bar', ['foo'], pilot.get('bar'));
 ```
 <a name="GulpPilot..MergerCallback"></a>
 ### GulpPilot~MergerCallback : <code>function</code>
@@ -149,7 +300,7 @@ It's up to you what ever merge implementation you choose for a specific config p
 ### GulpPilot~Settings : <code>Object</code>
 The default GulpPilot settings.
 
-You can overwrite those with a .pilotrc file in your root project folder.
+**Note:** You can overwrite those with a .pilotrc file in your root project folder.
 
 **Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
 
@@ -174,11 +325,11 @@ The complete name of the task. Subtasks are separated by a colon (:).
 **Example**  
 ```js
 'foo'
-'foo:sub'
-'foo:sub1:sub2'
+'filename:subtask'
+'filename:namespace:subtask'
 
-'foo/bar'
-'foo/bar:sub'
+'path/bar'
+'path/filename:subtask'
 ```
 <a name="MergerHash"></a>
 ## MergerHash : <code>Object.&lt;string, GulpPilot~MergerCallback&gt;</code>

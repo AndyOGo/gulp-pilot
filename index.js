@@ -45,11 +45,11 @@ GulpPilot.prototype = {
  * @typedef {string} TaskToken
  * @example
  * 'foo'
- * 'foo:sub'
- * 'foo:sub1:sub2'
+ * 'filename:subtask'
+ * 'filename:namespace:subtask'
  *
- * 'foo/bar'
- * 'foo/bar:sub'
+ * 'path/bar'
+ * 'path/filename:subtask'
  */
 
 /**
@@ -111,6 +111,9 @@ function task(name, dependencies) {
  * Get a task's function implementation by name.
  *
  * **Note:** This is handy if you want your task name being different from your implementation factory file.
+ *
+ * **Important:** If you supply a deeper subtask nesting than you object literal return by your factory can handle,
+ * your task implementing function will have the rest of name applied as it's arguments.
  *
  * @memberOf GulpPilot#
  * @param {TaskToken} name - The name of the task.

@@ -36,6 +36,7 @@ Each factory gets invoked with *3 parameters*:
 - $ - The gulp-load-plugins instance hash.
 - [config] - The default config, a specified config, or a merged version of both (optional).
 
+> gulp/foo.js
 ````javascript
 module.exports = function(gulp, $, config) {
     return function() {
@@ -45,8 +46,8 @@ module.exports = function(gulp, $, config) {
     };
 }
 ````
-> gulp/foo.js
 
+> gulp/bar.js
 ````javascript
 module.exports = function(gulp, $, config) {
     return function() {
@@ -56,8 +57,8 @@ module.exports = function(gulp, $, config) {
     };
 }
 ````
-> gulp/bar.js
 
+> gulpfile.js
 ````javascript
 var gulp = require('gulp');
 var pilot = require('gulp-pilot');
@@ -66,7 +67,6 @@ pilot.task('foo');
 
 pilot.task('bar', ['foo'])
 ````
-> gulpfile.js
 
 
 ## Subtasks
@@ -79,6 +79,7 @@ Nesting is possible like `"filename:namespace:subtask"`.
 
 Even paths are supported, like `"path/filename"`, `"path/filename:subtask"` or `"path/filename:namespace:subtask"`
 
+> gulp/foo.js
 ````javascript
 module.exports = function(gulp, $, config) {
     return {
@@ -96,8 +97,8 @@ module.exports = function(gulp, $, config) {
     };
 }
 ````
-> gulp/foo.js
 
+> gulp/bar.js
 ````javascript
 module.exports = function(gulp, $, config) {
     return function() {
@@ -107,8 +108,8 @@ module.exports = function(gulp, $, config) {
     };
 }
 ````
-> gulp/bar.js
 
+> gulpfile.js
 ````javascript
 var gulp = require('gulp');
 var pilot = require('gulp-pilot');
@@ -120,7 +121,6 @@ gulp.task('foo', ['foo:sub1', 'foo:sub2']]);
 
 pilot.task('bar', ['foo'])
 ````
-> gulpfile.js
 
 # API Documentation
 {{>main}}

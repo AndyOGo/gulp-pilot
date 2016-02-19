@@ -1,4 +1,4 @@
-## Installation
+# Installation
 
 Install `gulp-pilot` as a development dependency:
 
@@ -6,7 +6,7 @@ Install `gulp-pilot` as a development dependency:
 npm install --save-dev gulp-pilot
 ```
 
-## API Documentation
+# API Documentation
 ## Classes
 
 <dl>

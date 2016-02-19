@@ -14,5 +14,10 @@
   "license": "MIT",
   "dependencies": {
     "yargs": "^4.1.0"
+  },
+  "peerDependencies": {
+    "gulp": "*",
+    "gulp-util": "*",
+    "gulp-load-plugins": "*"
   }
 }

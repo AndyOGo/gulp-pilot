@@ -19,7 +19,7 @@
 <dd><p>The complete name of the task. Subtasks are separated by a colon (:).</p>
 </dd>
 <dt><a href="#MergerHash">MergerHash</a> : <code>Object.&lt;string, GulpPilot~MergerCallback&gt;</code></dt>
-<dd><p>A hash of property paths who&#39;s value are functions implementing a custom merge behavior.</p>
+<dd><p>A hash of property paths who&#39;s values are functions implementing a custom merge behavior.</p>
 </dd>
 </dl>
 
@@ -41,6 +41,16 @@
 GulpPilot helps you to manage you build tasks in separate, well structured files.
 
 **Peer-Dependencies:** This plugins requires your package to use gulp, gulp-util and gulp-load-plugins.
+
+**Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
+
+**CLI-Options:**
+| Flag | Description | Type |
+| --- | --- | --- |
+| --help | Show help | `boolean` |
+| --config, -c | Load a config file by path - for relative paths see CWD and __dirname below | `string` |
+| --merge-default-config, -m | Just use this flag to merge supplied config with default config | `boolean` |
+| --ignore-default-config, -i | Just use this flag to ignore default config (no merging) | `boolean` |
 
 <a name="GulpPilot+task"></a>
 ### gulpPilot.task(name, [dependencies]) ⇒ <code>[GulpPilot](#GulpPilot)</code>
@@ -80,7 +90,7 @@ pilot.task('bar', ['foo']);
 ```
 <a name="GulpPilot+get"></a>
 ### gulpPilot.get(name) ⇒ <code>function</code>
-Get a task' function implementation by name.
+Get a task's function implementation by name.
 
 **Kind**: instance method of <code>[GulpPilot](#GulpPilot)</code>  
 **Returns**: <code>function</code> - Returns the function that implements the task.  
@@ -131,6 +141,8 @@ The default GulpPilot settings.
 
 You can overwrite those with a .pilotrc file in your root project folder.
 
+**Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
+
 **Kind**: inner typedef of <code>[GulpPilot](#GulpPilot)</code>  
 **Properties**
 
@@ -160,6 +172,31 @@ The complete name of the task. Subtasks are separated by a colon (:).
 ```
 <a name="MergerHash"></a>
 ## MergerHash : <code>Object.&lt;string, GulpPilot~MergerCallback&gt;</code>
-A hash of property paths who's value are functions implementing a custom merge behavior.
+A hash of property paths who's values are functions implementing a custom merge behavior.
 
 **Kind**: global typedef  
+**Example**  
+```js
+// your default config => <package.name>.conf.{js,json}
+{
+ "foo": {
+     "a": 1,
+     "b": 2
+ },
+ "bar": "baz"
+}
+
+// custom config
+{
+ "foo": {
+     "b": 4
+ }
+}
+
+// your .pilotrc file
+{
+ "merger": {
+     "foo": function(config, defaultConfig) { ... }
+ }
+}
+```

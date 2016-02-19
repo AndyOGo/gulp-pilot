@@ -15,7 +15,7 @@ var config = require('./loadConfig')(gulp, $);
  * **Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
  *
  * **CLI-Options:**
- * 
+ *
  * | Flag | Description | Type |
  * | --- | --- | --- |
  * | --help | Show help | `boolean` |

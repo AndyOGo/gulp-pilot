@@ -37,6 +37,7 @@ Each factory gets invoked with *3 parameters*:
 - [config] - The default config, a specified config, or a merged version of both (optional).
 
 > gulp/foo.js
+
 ````javascript
 module.exports = function(gulp, $, config) {
     return function() {
@@ -48,6 +49,7 @@ module.exports = function(gulp, $, config) {
 ````
 
 > gulp/bar.js
+
 ````javascript
 module.exports = function(gulp, $, config) {
     return function() {
@@ -59,6 +61,7 @@ module.exports = function(gulp, $, config) {
 ````
 
 > gulpfile.js
+
 ````javascript
 var gulp = require('gulp');
 var pilot = require('gulp-pilot');
@@ -80,6 +83,7 @@ Nesting is possible like `"filename:namespace:subtask"`.
 Even paths are supported, like `"path/filename"`, `"path/filename:subtask"` or `"path/filename:namespace:subtask"`
 
 > gulp/foo.js
+
 ````javascript
 module.exports = function(gulp, $, config) {
     return {
@@ -99,6 +103,7 @@ module.exports = function(gulp, $, config) {
 ````
 
 > gulp/bar.js
+
 ````javascript
 module.exports = function(gulp, $, config) {
     return function() {
@@ -110,6 +115,7 @@ module.exports = function(gulp, $, config) {
 ````
 
 > gulpfile.js
+
 ````javascript
 var gulp = require('gulp');
 var pilot = require('gulp-pilot');

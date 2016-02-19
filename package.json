@@ -12,6 +12,10 @@
   ],
   "author": "Andreas Deuschlinger",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AndyOGo/gulp-pilot.git"
+  },
   "dependencies": {
     "yargs": "^4.1.0"
   },

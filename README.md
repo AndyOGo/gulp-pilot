@@ -1,12 +1,12 @@
 ## Installation
 
-Install `gulp-inject` as a development dependency:
+Install `gulp-pilot` as a development dependency:
 
 ```shell
 npm install --save-dev gulp-pilot
 ```
 
-# API Documentation
+## API Documentation
 ## Classes
 
 <dl>

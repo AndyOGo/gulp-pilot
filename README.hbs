@@ -6,5 +6,121 @@ Install `gulp-pilot` as a development dependency:
 npm install --save-dev gulp-pilot
 ```
 
+# Usage
+
+After you have installed this plugin you can utilize it in your gulpfile.js.
+
+Basically tasks are just javascript modules, though you can also group tasks
+and have multiple tasks defined in one module (subtasks).
+
+Let's assume the following folder structure:
+
+.
++-- dist/
++-- node_modules/
++-- src/
+|   +-- ...
++-- gulp/
+|   +-- foo.js
+|   +-- bar.js
++-- gulpfile.js
++-- package.json
++-- README.md
+
+## Task implementation factories
+
+Those are just functions you would export out of your module, who return a function that implements the task.
+Each factory gets invoked with *3 parameters*:
+
+- gulp - The gulp instance
+- $ - The gulp-load-plugins instance hash.
+- [config] - The default config, a specified config, or a merged version of both (optional).
+
+````javascript
+module.exports = function(gulp, $, config) {
+    return function() {
+        return gulp.src('Yours glob pattern here')
+            .pipe('...')
+            .pipe(gulp.dest('your path here');
+    };
+}
+````
+> gulp/foo.js
+
+````javascript
+module.exports = function(gulp, $, config) {
+    return function() {
+        return gulp.src('Another glob pattern here')
+            .pipe('...')
+            .pipe(gulp.dest('Another path here');
+    };
+}
+````
+> gulp/bar.js
+
+````javascript
+var gulp = require('gulp');
+var pilot = require('gulp-pilot');
+
+pilot.task('foo');
+
+pilot.task('bar', ['foo'])
+````
+> gulpfile.js
+
+
+## Subtasks
+
+Those are just functions you would export out of your module, who return plain object literals.
+Who's Properties represent one subtask's implementation.
+
+Each subtask is selected by the color (:) delimiter in your name, e.g. `"filename:subtask"`.
+Nesting is possible like `"filename:namespace:subtask"`.
+
+Even paths are supported, like `"path/filename"`, `"path/filename:subtask"` or `"path/filename:namespace:subtask"`
+
+````javascript
+module.exports = function(gulp, $, config) {
+    return {
+        sub1: function() {
+            return gulp.src('Yours glob pattern here')
+                .pipe('...')
+                .pipe(gulp.dest('your path here');
+        },
+
+        sub2: function() {
+            return gulp.src('Yours glob pattern here')
+                .pipe('...')
+                .pipe(gulp.dest('your path here');
+        }
+    };
+}
+````
+> gulp/foo.js
+
+````javascript
+module.exports = function(gulp, $, config) {
+    return function() {
+        gulp.src('Another glob pattern here')
+            .pipe('...')
+            .pipe(gulp.dest('Another path here');
+    };
+}
+````
+> gulp/bar.js
+
+````javascript
+var gulp = require('gulp');
+var pilot = require('gulp-pilot');
+
+pilot.task('foo:sub1');
+pilot.task('foo:sub2');
+
+gulp.task('foo', ['foo:sub1', 'foo:sub2']]);
+
+pilot.task('bar', ['foo'])
+````
+> gulpfile.js
+
 # API Documentation
 {{>main}}

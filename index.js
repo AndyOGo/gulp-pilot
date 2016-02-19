@@ -4,7 +4,9 @@ var gulpDir = cwd + '/' + settings.directory + '/';
 
 var yargs = require('yargs');
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
+var $ = require('gulp-load-plugins')({
+    config: cwd + '/' + settings.packageJSON
+});
 var config = require('./lib/loadConfig')(gulp, $);
 
 /**

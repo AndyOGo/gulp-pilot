@@ -6,7 +6,33 @@ Install `gulp-inject` as a development dependency:
 npm install --save-dev gulp-pilot
 ```
 
-    <a name="GulpPilot"></a>
+# API Documentation
+## Classes
+
+<dl>
+<dt><a href="#GulpPilot">GulpPilot</a></dt>
+<dd></dd>
+</dl>
+
+## Members
+
+<dl>
+<dt><a href="#settings">settings</a> : <code><a href="#GulpPilot..Settings">Settings</a></code></dt>
+<dd></dd>
+</dl>
+
+## Typedefs
+
+<dl>
+<dt><a href="#TaskToken">TaskToken</a> : <code>string</code></dt>
+<dd><p>The complete name of the task. Subtasks are separated by a colon (:).</p>
+</dd>
+<dt><a href="#MergerHash">MergerHash</a> : <code>Object.&lt;string, GulpPilot~MergerCallback&gt;</code></dt>
+<dd><p>A hash of property paths who&#39;s values are functions implementing a custom merge behavior.</p>
+</dd>
+</dl>
+
+<a name="GulpPilot"></a>
 ## GulpPilot
 **Kind**: global class  
 
@@ -137,3 +163,50 @@ You can overwrite those with a .pilotrc file in your root project folder.
 | mergeDefaultConfig | <code>boolean</code> | <code>true</code> | Whether or not to merge custom config with your default config. |
 | merger | <code>[MergerHash](#MergerHash)</code> | <code>{}</code> | A hash of property paths who's value are functions implementing a custom merge behavior. |
 
+<a name="settings"></a>
+## settings : <code>[Settings](#GulpPilot..Settings)</code>
+**Kind**: global variable  
+<a name="TaskToken"></a>
+## TaskToken : <code>string</code>
+The complete name of the task. Subtasks are separated by a colon (:).
+
+**Kind**: global typedef  
+**Example**  
+```js
+'foo'
+'foo:sub'
+'foo:sub1:sub2'
+
+'foo/bar'
+'foo/bar:sub'
+```
+<a name="MergerHash"></a>
+## MergerHash : <code>Object.&lt;string, GulpPilot~MergerCallback&gt;</code>
+A hash of property paths who's values are functions implementing a custom merge behavior.
+
+**Kind**: global typedef  
+**Example**  
+```js
+// your default config => <package.name>.conf.{js,json}
+{
+ "foo": {
+     "a": 1,
+     "b": 2
+ },
+ "bar": "baz"
+}
+
+// custom config
+{
+ "foo": {
+     "b": 4
+ }
+}
+
+// your .pilotrc file
+{
+ "merger": {
+     "foo": function(config, defaultConfig) { ... }
+ }
+}
+```

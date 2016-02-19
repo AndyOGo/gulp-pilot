@@ -10,6 +10,9 @@
     "gulp",
     "gulp-pilot"
   ],
-  "author": "Andreas Deuschlinger <andreas@scale-unlimited.com>",
-  "license": "MIT"
+  "author": "Andreas Deuschlinger",
+  "license": "MIT",
+  "dependencies": {
+    "yargs": "^4.1.0"
+  }
 }

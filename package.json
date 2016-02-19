@@ -19,5 +19,8 @@
     "gulp": "*",
     "gulp-util": "*",
     "gulp-load-plugins": "*"
+  },
+  "devDependencies": {
+    "jsdoc-to-markdown": "^1.3.3"
   }
 }

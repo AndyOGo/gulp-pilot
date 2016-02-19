@@ -45,6 +45,7 @@ GulpPilot helps you to manage you build tasks in separate, well structured files
 **Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
 
 **CLI-Options:**
+
 | Flag | Description | Type |
 | --- | --- | --- |
 | --help | Show help | `boolean` |

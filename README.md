@@ -15,7 +15,6 @@ and have multiple tasks defined in one module (subtasks).
 
 Let's assume the following folder structure:
 
-.
 |-- dist/
 |-- node_modules/
 |-- src/

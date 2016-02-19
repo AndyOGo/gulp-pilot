@@ -5,7 +5,7 @@ var gulpDir = cwd + '/' + settings.directory + '/';
 var yargs = require('yargs');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var config = require('./loadConfig')(gulp, $);
+var config = require('./lib/loadConfig')(gulp, $);
 
 /**
  * GulpPilot helps you to manage you build tasks in separate, well structured files.

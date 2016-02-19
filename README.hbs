@@ -15,6 +15,7 @@ and have multiple tasks defined in one module (subtasks).
 
 Let's assume the following folder structure:
 
+```shell
 |-- dist/
 |-- node_modules/
 |-- src/
@@ -25,6 +26,7 @@ Let's assume the following folder structure:
 |-- gulpfile.js
 |-- package.json
 |-- README.md
+```
 
 ## Task implementation factories
 

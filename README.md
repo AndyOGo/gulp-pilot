@@ -78,7 +78,7 @@ pilot.task('bar', ['foo'])
 Those are just functions you would export out of your module, who return plain object literals.
 Who's Properties represent one subtask's implementation.
 
-Each subtask is selected by the color (:) delimiter in your name, e.g. `"filename:subtask"`.
+Each subtask is selected by the colon (:) delimiter in your name, e.g. `"filename:subtask"`.
 Nesting is possible like `"filename:namespace:subtask"`.
 
 Even paths are supported, like `"path/filename"`, `"path/filename:subtask"` or `"path/filename:namespace:subtask"`
@@ -124,7 +124,7 @@ var pilot = require('gulp-pilot');
 pilot.task('foo:sub1');
 pilot.task('foo:sub2');
 
-gulp.task('foo', ['foo:sub1', 'foo:sub2']]);
+gulp.task('foo', ['foo:sub1', 'foo:sub2']);
 
 pilot.task('bar', ['foo'])
 ````

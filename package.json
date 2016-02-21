@@ -8,6 +8,7 @@
   },
   "keywords": [
     "gulp",
+    "gulpplugin",
     "gulp-pilot"
   ],
   "author": "Andreas Deuschlinger",

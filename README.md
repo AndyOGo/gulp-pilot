@@ -150,7 +150,7 @@ pilot.task('bar', ['foo'])
 <dt><a href="#TaskToken">TaskToken</a> : <code>string</code></dt>
 <dd><p>The complete name of the task. Subtasks are separated by a colon (:).</p>
 </dd>
-<dt><a href="#MergerHash">MergerHash</a> : <code>Object.&lt;string, GulpPilot~MergerCallback&gt;</code></dt>
+<dt><a href="#MergerHash">MergerHash</a> : <code>Object.&lt;string, (GulpPilot~MergerCallback|GulpPilot~MergerPlugin)&gt;</code></dt>
 <dd><p>A hash of property paths who&#39;s values are functions implementing a custom merge behavior.</p>
 </dd>
 </dl>
@@ -166,6 +166,7 @@ pilot.task('bar', ['foo'])
         * [.get(name)](#GulpPilot+get) ⇒ <code>function</code>
     * _inner_
         * [~MergerCallback](#GulpPilot..MergerCallback) : <code>function</code>
+        * [~MergerPlugin](#GulpPilot..MergerPlugin) : <code>string</code>
         * [~Settings](#GulpPilot..Settings) : <code>Object</code>
 
 <a name="new_GulpPilot_new"></a>
@@ -303,6 +304,16 @@ It's up to you what ever merge implementation you choose for a specific config p
 | config | <code>Object</code> | The custom config object. |
 | defaultConfig | <code>Object</code> | The default config object. |
 
+<a name="GulpPilot..MergerPlugin"></a>
+### GulpPilot~MergerPlugin : <code>string</code>
+This string is the name of a NPM package which returns a GulpPilot~MergerCallback function.
+It's name format is `"gulp-pilot-merger-..."`
+
+So far there exist the following plugins:
+- Preprocess Merger (`"gulp-pilot-merger-preprocess"`)
+- Preprocess Topo Merger (`"gulp-pilot-merger-preprocess-topo"`)
+
+**Kind**: inner typedef of <code>[GulpPilot](#GulpPilot)</code>  
 <a name="GulpPilot..Settings"></a>
 ### GulpPilot~Settings : <code>Object</code>
 The default GulpPilot settings.
@@ -339,7 +350,7 @@ The complete name of the task. Subtasks are separated by a colon (:).
 'path/filename:subtask'
 ```
 <a name="MergerHash"></a>
-## MergerHash : <code>Object.&lt;string, GulpPilot~MergerCallback&gt;</code>
+## MergerHash : <code>Object.&lt;string, (GulpPilot~MergerCallback\|GulpPilot~MergerPlugin)&gt;</code>
 A hash of property paths who's values are functions implementing a custom merge behavior.
 
 **Kind**: global typedef  

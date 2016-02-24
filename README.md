@@ -130,6 +130,7 @@ pilot.task('bar', ['foo'])
 ````
 
 # API Documentation
+
 ## Classes
 
 <dl>
@@ -310,8 +311,11 @@ This string is the name of a NPM package which returns a `GulpPilot~MergerCallba
 It's name format is `"gulp-pilot-merger-..."`
 
 So far there exist the following plugins:
-- Preprocess Merger (`"gulp-pilot-merger-preprocess"`)
-- Preprocess Topo Merger (`"gulp-pilot-merger-preprocess-topo"`)
+- [Preprocess Merger](https://www.npmjs.com/package/gulp-pilot-merger-preprocess) (`"gulp-pilot-merger-preprocess"`)
+- [Preprocess Topo Merger](https://www.npmjs.com/package/gulp-pilot-merger-preprocess-topo) (`"gulp-pilot-merger-preprocess-topo"`)
+
+You can also search for plugins by `gulp-pilot-merger` keyword.
+[https://www.npmjs.com/search?q=gulp-pilot-merger](https://www.npmjs.com/search?q=gulp-pilot-merger)
 
 **Kind**: inner typedef of <code>[GulpPilot](#GulpPilot)</code>  
 <a name="GulpPilot..Settings"></a>
@@ -406,6 +410,7 @@ A hash of property paths who's values are functions implementing a custom merge 
 ```
 
 #License
+
 The MIT License (MIT)
 
 Copyright (c) 2016 Andreas Deuschlinger

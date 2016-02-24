@@ -4,7 +4,7 @@
   "description": "A Gulp task manager to avoid spaghetti code",
   "main": "index.js",
   "scripts": {
-    "docs": "jsdoc2md --template README.hbs \"{./,lib/}*.js\" > README.md"
+    "docs": "jsdoc2md --helper ./handlebars-helper/rawinclude.js --template README.hbs \"{./,lib/}*.js\" --verbose > README.md"
   },
   "keywords": [
     "gulp",

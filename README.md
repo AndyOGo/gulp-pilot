@@ -306,7 +306,7 @@ It's up to you what ever merge implementation you choose for a specific config p
 
 <a name="GulpPilot..MergerPlugin"></a>
 ### GulpPilot~MergerPlugin : <code>string</code>
-This string is the name of a NPM package which returns a GulpPilot~MergerCallback function.
+This string is the name of a NPM package which returns a `GulpPilot~MergerCallback` function.
 It's name format is `"gulp-pilot-merger-..."`
 
 So far there exist the following plugins:
@@ -354,7 +354,7 @@ The complete name of the task. Subtasks are separated by a colon (:).
 A hash of property paths who's values are functions implementing a custom merge behavior.
 
 **Kind**: global typedef  
-**Example**  
+**Example** *(Custom merger callback)*  
 ```js
 // your default config => <package.name>.conf.{js,json}
 {
@@ -376,6 +376,31 @@ A hash of property paths who's values are functions implementing a custom merge 
 {
  "merger": {
      "foo": function(config, defaultConfig) { ... }
+ }
+}
+```
+**Example** *(Merger Plugin)*  
+```js
+// your default config => <package.name>.conf.{js,json}
+{
+ "foo": {
+     "a": 1,
+     "b": 2
+ },
+ "bar": "baz"
+}
+
+// custom config
+{
+ "foo": {
+     "b": 4
+ }
+}
+
+// your .pilotrc file
+{
+ "merger": {
+     "foo": "gulp-pilot-merger-<name of merger plugin here...>"
  }
 }
 ```

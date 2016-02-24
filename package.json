@@ -4,7 +4,7 @@
   "description": "A Gulp task manager to avoid spaghetti code",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docs": "jsdoc2md --template README.hbs \"{./,lib/}*.js\" > README.md"
   },
   "keywords": [
     "gulp",

@@ -19,6 +19,7 @@
     "url": "git@github.com:AndyOGo/gulp-pilot.git"
   },
   "dependencies": {
+    "chalk": "^1.1.1",
     "yargs": "^4.1.0"
   },
   "peerDependencies": {

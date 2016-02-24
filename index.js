@@ -4,6 +4,7 @@ var gulpDir = cwd + '/' + settings.directory + '/';
 
 var yargs = require('yargs');
 var gulp = require('gulp');
+var chalk = require('chalk');
 var $ = require('gulp-load-plugins')({
     config: cwd + '/' + settings.packageJSON
 });
@@ -155,7 +156,6 @@ function task(name, dependencies) {
  */
 function get(name) {
     var log = $.util.log;
-    var chalk = $.util.colors;
     var path;
 
     // split name by colon :

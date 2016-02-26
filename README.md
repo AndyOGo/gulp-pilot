@@ -151,6 +151,9 @@ pilot.task('bar', ['foo'])
 <dt><a href="#TaskToken">TaskToken</a> : <code>string</code></dt>
 <dd><p>The complete name of the task. Subtasks are separated by a colon (:).</p>
 </dd>
+<dt><a href="#InitHash">InitHash</a> : <code>Object.&lt;string, (GulpPilot~InitCallback|GulpPilot~InitPlugin)&gt;</code></dt>
+<dd><p>A hash of property paths who&#39;s values are functions implementing a custom merge behavior.</p>
+</dd>
 <dt><a href="#MergerHash">MergerHash</a> : <code>Object.&lt;string, (GulpPilot~MergerCallback|GulpPilot~MergerPlugin)&gt;</code></dt>
 <dd><p>A hash of property paths who&#39;s values are functions implementing a custom merge behavior.</p>
 </dd>
@@ -166,6 +169,8 @@ pilot.task('bar', ['foo'])
         * [.task(name, [dependencies])](#GulpPilot+task) ⇒ <code>[GulpPilot](#GulpPilot)</code>
         * [.get(name)](#GulpPilot+get) ⇒ <code>function</code>
     * _inner_
+        * [~InitCallback](#GulpPilot..InitCallback) : <code>function</code>
+        * [~InitPlugin](#GulpPilot..InitPlugin) : <code>string</code>
         * [~MergerCallback](#GulpPilot..MergerCallback) : <code>function</code>
         * [~MergerPlugin](#GulpPilot..MergerPlugin) : <code>string</code>
         * [~Settings](#GulpPilot..Settings) : <code>Object</code>
@@ -293,6 +298,31 @@ gulp.task('foo', pilot.get('foo:sub'));
 // will load from gulp/bar.js with dependency 'foo'
 gulp.task('bar', ['foo'], pilot.get('bar'));
 ```
+<a name="GulpPilot..InitCallback"></a>
+### GulpPilot~InitCallback : <code>function</code>
+This callback is executed for a property path that matches.
+It's up to you what ever initialization implementation you choose for a specific config property.
+
+**Kind**: inner typedef of <code>[GulpPilot](#GulpPilot)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| config | <code>Object</code> | The default or custom config object. |
+
+<a name="GulpPilot..InitPlugin"></a>
+### GulpPilot~InitPlugin : <code>string</code>
+This string is the name of a NPM package which returns a `GulpPilot~InitCallback` function either directly
+or as an object literal by init property.
+It's name format is `"gulp-pilot-init-..."`
+
+So far there exist the following plugins:
+- [Preprocess Merger](https://www.npmjs.com/package/gulp-pilot-merger-preprocess) (`"gulp-pilot-merger-preprocess"`)
+- [Preprocess Topo Merger](https://www.npmjs.com/package/gulp-pilot-merger-preprocess-topo) (`"gulp-pilot-merger-preprocess-topo"`)
+
+You can also search for plugins by `gulp-pilot-init` keyword.
+[https://www.npmjs.com/search?q=gulp-pilot-merger](https://www.npmjs.com/search?q=gulp-pilot-merger)
+
+**Kind**: inner typedef of <code>[GulpPilot](#GulpPilot)</code>  
 <a name="GulpPilot..MergerCallback"></a>
 ### GulpPilot~MergerCallback : <code>function</code>
 This callback is executed for a property path that matches.
@@ -307,7 +337,8 @@ It's up to you what ever merge implementation you choose for a specific config p
 
 <a name="GulpPilot..MergerPlugin"></a>
 ### GulpPilot~MergerPlugin : <code>string</code>
-This string is the name of a NPM package which returns a `GulpPilot~MergerCallback` function.
+This string is the name of a NPM package which returns a `GulpPilot~MergerCallback` function either directly
+or as an object literal by merger property.
 It's name format is `"gulp-pilot-merger-..."`
 
 So far there exist the following plugins:
@@ -334,6 +365,7 @@ The default GulpPilot settings.
 | directory | <code>string</code> | <code>&quot;gulp&quot;</code> | The directory where all gulp tasks will be implemented. |
 | packageJSON | <code>string</code> | <code>&quot;package.json&quot;</code> | The name of your projects package.json file. |
 | mergeDefaultConfig | <code>boolean</code> | <code>true</code> | Whether or not to merge custom config with your default config. |
+| init | <code>[InitHash](#InitHash)</code> | <code>{}</code> | A hash of property paths who's value are functions implementing a custom initialization behavior. |
 | merger | <code>[MergerHash](#MergerHash)</code> | <code>{}</code> | A hash of property paths who's value are functions implementing a custom merge behavior. |
 
 <a name="settings"></a>
@@ -352,6 +384,61 @@ The complete name of the task. Subtasks are separated by a colon (:).
 
 'path/bar'
 'path/filename:subtask'
+```
+<a name="InitHash"></a>
+## InitHash : <code>Object.&lt;string, (GulpPilot~InitCallback\|GulpPilot~InitPlugin)&gt;</code>
+A hash of property paths who's values are functions implementing a custom merge behavior.
+
+**Kind**: global typedef  
+**Example** *(Custom merger callback)*  
+```js
+// your default config => <package.name>.conf.{js,json}
+{
+ "foo": {
+     "a": 1,
+     "b": 2
+ },
+ "bar": "baz"
+}
+
+// custom config
+{
+ "foo": {
+     "b": 4
+ }
+}
+
+// your .pilotrc file
+{
+ "init": {
+     "foo": function(config) { ... }
+ }
+}
+```
+**Example** *(Merger Plugin)*  
+```js
+// your default config => <package.name>.conf.{js,json}
+{
+ "foo": {
+     "a": 1,
+     "b": 2
+ },
+ "bar": "baz"
+}
+
+// custom config
+{
+ "foo": {
+     "b": 4
+ }
+}
+
+// your .pilotrc file
+{
+ "init": {
+     "foo": "gulp-pilot-init-<name of merger plugin here...>"
+ }
+}
 ```
 <a name="MergerHash"></a>
 ## MergerHash : <code>Object.&lt;string, (GulpPilot~MergerCallback\|GulpPilot~MergerPlugin)&gt;</code>

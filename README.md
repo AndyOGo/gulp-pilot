@@ -152,7 +152,7 @@ pilot.task('bar', ['foo'])
 <dd><p>The complete name of the task. Subtasks are separated by a colon (:).</p>
 </dd>
 <dt><a href="#InitHash">InitHash</a> : <code>Object.&lt;string, (GulpPilot~InitCallback|GulpPilot~InitPlugin)&gt;</code></dt>
-<dd><p>A hash of property paths who&#39;s values are functions implementing a custom merge behavior.</p>
+<dd><p>A hash of property paths who&#39;s values are functions implementing a custom initialization behavior.</p>
 </dd>
 <dt><a href="#MergerHash">MergerHash</a> : <code>Object.&lt;string, (GulpPilot~MergerCallback|GulpPilot~MergerPlugin)&gt;</code></dt>
 <dd><p>A hash of property paths who&#39;s values are functions implementing a custom merge behavior.</p>
@@ -387,10 +387,10 @@ The complete name of the task. Subtasks are separated by a colon (:).
 ```
 <a name="InitHash"></a>
 ## InitHash : <code>Object.&lt;string, (GulpPilot~InitCallback\|GulpPilot~InitPlugin)&gt;</code>
-A hash of property paths who's values are functions implementing a custom merge behavior.
+A hash of property paths who's values are functions implementing a custom initialization behavior.
 
 **Kind**: global typedef  
-**Example** *(Custom merger callback)*  
+**Example** *(Custom init callback)*  
 ```js
 // your default config => <package.name>.conf.{js,json}
 {
@@ -415,7 +415,7 @@ A hash of property paths who's values are functions implementing a custom merge 
  }
 }
 ```
-**Example** *(Merger Plugin)*  
+**Example** *(Init Plugin)*  
 ```js
 // your default config => <package.name>.conf.{js,json}
 {

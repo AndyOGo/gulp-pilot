@@ -159,10 +159,10 @@ function get(name) {
     var path;
 
     // split name by colon :
-    name = name.split(':');
+    var names = name.split(':');
 
     try {
-        path = gulpDir + name.shift();
+        path = gulpDir + names.shift();
 
         // get the task module by first item
         var task = require(path);
@@ -181,10 +181,10 @@ function get(name) {
             // if it is a function -> call it
             for (var i = 0, l = name.length; i < l; i++) {
                 if (typeof task === 'function') {
-                    task = task.apply(null, name);
+                    task = task.apply(null, names);
                     break;
                 }
-                task = task[name.shift()];
+                task = task[names.shift()];
             }
         } catch(e) {
             log(chalk.red('Can\' get task function: ' + chalk.magenta(path) + '!'));
@@ -202,6 +202,7 @@ function get(name) {
     // a task always needs to be a function
     if(typeof task !== 'function') {
         log(chalk.red('Expected returned value to be a function: ' + chalk.magenta(path) + '!'));
+        log(chalk.red('Could not find task by Task-Token: ' + chalk.yellow(name) + '!'));
         process.exit(1);
     }
 

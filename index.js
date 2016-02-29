@@ -20,7 +20,7 @@ var config = require('./lib/loadConfig')(gulp, $);
  *
  * **Peer-Dependencies:** This plugins requires your package to use gulp, gulp-util and gulp-load-plugins.
  *
- * **Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
+ * **Note:** Your default config is always in your root folder called `<package.name>.conf.{js,json}`.
  *
  * **CLI-Options:**
  *

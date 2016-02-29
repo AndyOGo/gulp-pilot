@@ -129,6 +129,45 @@ gulp.task('foo', ['foo:sub1', 'foo:sub2']);
 pilot.task('bar', ['foo'])
 ````
 
+# Configuration
+
+Optionally you can have a config hash available for each task.
+Gulp-Pilot always searcher in your root directory for `<package.name>.conf.{js|json}` file,
+which will be the default config, see following examples:
+
+> project.conf.js
+
+````javascript
+module.exports = {
+    path: {
+        src: 'src/',
+        dist: 'dist',
+    }
+};
+````
+
+> project.conf.json
+
+````json
+{
+    "path": {
+        "src": "src/",
+        "dist": "dist/"
+    }
+}
+````
+
+## CLI Options
+If you need to load different config files, e.g. one for production, the other for development.
+You can, either by merging with your default config, or without merging.
+
+| Flag | Description | Type |
+* | --- | --- | --- |
+* | --help | Show help | `boolean` |
+* | --config, -c | Load a config file by path - for relative paths see CWD and __dirname below | `string` |
+* | --merge-default-config, -m | Just use this flag to merge supplied config with default config | `boolean` |
+* | --ignore-default-config, -i | Just use this flag to ignore default config (no merging) | `boolean` |
+
 # API Documentation
 
 ## Classes
@@ -186,7 +225,7 @@ GulpPilot helps you to manage you build tasks in separate, well structured files
 
 **Peer-Dependencies:** This plugins requires your package to use gulp, gulp-util and gulp-load-plugins.
 
-**Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
+**Note:** Your default config is always in your root folder called `<package.name>.conf.{js,json}`.
 
 **CLI-Options:**
 

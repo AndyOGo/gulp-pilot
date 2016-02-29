@@ -158,8 +158,20 @@ module.exports = {
 ````
 
 ## CLI Options
+
 If you need to load different config files, e.g. one for production, the other for development.
 You can, either by merging with your default config, or without merging.
+
+````shell
+# custom config, will merge by default (you can change this in your .pilotrc file)
+gulp [any task] -c custom.conf.js
+
+# force merging
+gulp [any task] -c custom.conf.js -m
+
+# avoid mergin
+gulp [any task] -c custom.conf.js -i
+````
 
 | Flag | Description | Type |
 | --- | --- | --- |

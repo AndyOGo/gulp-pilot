@@ -1,3 +1,11 @@
+# What is this all about?
+
+Well, are you using Gulp? Did you ever had the problem, that your gulpfile.js gets really big and messy?
+Or did you need configuration, depending on environment (development, production, etc.)?
+
+Gulp-Pilot aims to solve those obstacles.
+No more gulp-spaghetti tasks, keeping your tasks DRY, clear and structured.
+
 # Installation
 
 Install `gulp-pilot` as a development dependency:

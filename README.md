@@ -140,7 +140,7 @@ pilot.task('bar', ['foo'])
 # Configuration
 
 Optionally you can have a config hash available for each task.
-Gulp-Pilot always searcher in your root directory for `<package.name>.conf.{js|json}` file,
+Gulp-Pilot always scans your root directory for `<package.name>.conf.{js|json}` file,
 which will be the default config, see following examples:
 
 > project.conf.js

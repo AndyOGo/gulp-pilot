@@ -179,7 +179,7 @@ function get(name) {
         try {
             // if type of task is a hash -> traverse path
             // if it is a function -> call it
-            for (var i = 0, l = name.length; i < l; i++) {
+            for (var i = 0, l = names.length; i < l; i++) {
                 if (typeof task === 'function') {
                     task = task.apply(null, names);
                     break;

@@ -162,11 +162,11 @@ If you need to load different config files, e.g. one for production, the other f
 You can, either by merging with your default config, or without merging.
 
 | Flag | Description | Type |
-* | --- | --- | --- |
-* | --help | Show help | `boolean` |
-* | --config, -c | Load a config file by path - for relative paths see CWD and __dirname below | `string` |
-* | --merge-default-config, -m | Just use this flag to merge supplied config with default config | `boolean` |
-* | --ignore-default-config, -i | Just use this flag to ignore default config (no merging) | `boolean` |
+| --- | --- | --- |
+| --help | Show help | `boolean` |
+| --config, -c | Load a config file by path - for relative paths see CWD and __dirname below | `string` |
+| --merge-default-config, -m | Just use this flag to merge supplied config with default config | `boolean` |
+| --ignore-default-config, -i | Just use this flag to ignore default config (no merging) | `boolean` |
 
 # API Documentation
 

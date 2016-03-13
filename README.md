@@ -171,7 +171,7 @@ If you need to load different config files, e.g. one for production, the other f
 You can, either by merging with your default config, or without merging.
 
 ````shell
-# custom config, will merge by default (you can change this in your .pilotrc file)
+# custom config, will merge by default (you can change this in your `pilotrc` file)
 gulp [any task] -c custom.conf.js
 
 # force merging
@@ -412,7 +412,7 @@ You can also search for plugins by `gulp-pilot-merger` keyword.
 ### GulpPilot~Settings : <code>Object</code>
 The default GulpPilot settings.
 
-**Note:** You can overwrite those with a .pilotrc file in your root project folder.
+**Note:** You can overwrite those with a `pilotrc` file in your root project folder.
 
 **Note:** Your default config is always in your root folder called <package.name>.conf.{js,json}
 
@@ -467,7 +467,7 @@ A hash of property paths who's values are functions implementing a custom initia
  }
 }
 
-// your .pilotrc file
+// your pilotrc file
 {
  "init": {
      "foo": function(config) { ... }
@@ -492,7 +492,7 @@ A hash of property paths who's values are functions implementing a custom initia
  }
 }
 
-// your .pilotrc file
+// your pilotrc file
 {
  "init": {
      "foo": "gulp-pilot-init-<name of merger plugin here...>"
@@ -522,7 +522,7 @@ A hash of property paths who's values are functions implementing a custom merge 
  }
 }
 
-// your .pilotrc file
+// your pilotrc file
 {
  "merger": {
      "foo": function(config, defaultConfig) { ... }
@@ -547,7 +547,7 @@ A hash of property paths who's values are functions implementing a custom merge 
  }
 }
 
-// your .pilotrc file
+// your pilotrc file
 {
  "merger": {
      "foo": "gulp-pilot-merger-<name of merger plugin here...>"

@@ -1,6 +1,6 @@
 {
   "name": "gulp-pilot",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "A Gulp task manager to avoid spaghetti code",
   "main": "index.js",
   "scripts": {

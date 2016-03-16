@@ -212,5 +212,8 @@ function get(name) {
 // single instance
 var instance = new GulpPilot();
 
+// export config
+instance.config = config;
+
 // export GulpPilot singleton
 module.exports = instance;

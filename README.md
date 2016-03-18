@@ -227,6 +227,9 @@ gulp [any task] -c custom.conf.js -i
     * _instance_
         * [.task(name, [dependencies])](#GulpPilot+task) ⇒ <code>[GulpPilot](#GulpPilot)</code>
         * [.get(name)](#GulpPilot+get) ⇒ <code>function</code>
+    * _static_
+        * [.config](#GulpPilot.config)
+        * [.gulp](#GulpPilot.gulp)
     * _inner_
         * [~InitCallback](#GulpPilot..InitCallback) : <code>function</code>
         * [~InitPlugin](#GulpPilot..InitPlugin) : <code>string</code>
@@ -357,6 +360,29 @@ gulp.task('foo', pilot.get('foo:sub'));
 // will load from gulp/bar.js with dependency 'foo'
 gulp.task('bar', ['foo'], pilot.get('bar'));
 ```
+<a name="GulpPilot.config"></a>
+### GulpPilot.config
+Export config literal.
+
+**Kind**: static property of <code>[GulpPilot](#GulpPilot)</code>  
+**Properties**
+
+| Type | Description |
+| --- | --- |
+| <code>object</code> | The loaded config for your project. |
+
+<a name="GulpPilot.gulp"></a>
+### GulpPilot.gulp
+Export gulp (mainly for run-sequence).
+
+**Kind**: static property of <code>[GulpPilot](#GulpPilot)</code>  
+**See**: https://www.npmjs.com/package/run-sequence#using-within-gulp-submodules  
+**Properties**
+
+| Type | Description |
+| --- | --- |
+| <code>object</code> | The `gulp` instance used by `gulp-pilot`. |
+
 <a name="GulpPilot..InitCallback"></a>
 ### GulpPilot~InitCallback : <code>function</code>
 This callback is executed for a property path that matches.

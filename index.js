@@ -212,8 +212,24 @@ function get(name) {
 // single instance
 var instance = new GulpPilot();
 
-// export config
+/**
+ * Export config literal.
+ *
+ * @memberOf GulpPilot
+ * @name config
+ * @property {object} - The loaded config for your project.
+ */
 instance.config = config;
+
+/**
+ * Export gulp (mainly for run-sequence).
+ *
+ * @see https://www.npmjs.com/package/run-sequence#using-within-gulp-submodules
+ * @memberOf GulpPilot
+ * @name gulp
+ * @property {object} - The `gulp` instance used by `gulp-pilot`.
+ */
+instance.gulp = gulp;
 
 // export GulpPilot singleton
 module.exports = instance;
